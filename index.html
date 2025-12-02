@@ -1,0 +1,4457 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ashikul Islam Onik | Lead Developer</title>
+
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+
+
+    <!-- Font Awesome (for icons) -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+
+    <style>
+        /* ========================================
+
+        ROOT & GLOBAL STYLES
+
+        ========================================
+
+        */
+
+        :root {
+
+            --bg-dark: #111319;
+
+            --bg-card: #1a1d24;
+
+            --text-primary: #E0E0E0;
+
+            --text-secondary: #a0a0a0;
+
+            --accent-cyan: #00F5D4;
+
+            --accent-purple: #9B59B6;
+
+            --shadow-color: rgba(0, 245, 212, 0.1);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Poppins', sans-serif;
+
+            background-color: var(--bg-dark);
+
+            color: var(--text-primary);
+
+            line-height: 1.6;
+
+            overflow-x: hidden;
+
+
+
+            /* Page load fade-in */
+
+            animation: fadeIn 1s ease-in-out;
+
+        }
+
+
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+
+            }
+
+
+
+            to {
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+
+        /* NEW: Hide page content by default for gatekeeper */
+
+        #aura,
+
+        .navbar,
+
+        .hero,
+
+        main,
+
+        footer {
+
+            visibility: hidden;
+
+            opacity: 0;
+
+            transition: opacity 0.5s ease-in-out;
+
+        }
+
+
+
+        #aura.visible,
+
+        .navbar.visible,
+
+        .hero.visible,
+
+        main.visible,
+
+        footer.visible {
+
+            visibility: visible;
+
+            opacity: 1;
+
+        }
+
+
+
+        /* Special case for hero (flex) */
+
+        .hero.visible {
+
+            display: flex;
+
+        }
+
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 0 2rem;
+
+        }
+
+
+
+        h1,
+
+        h2,
+
+        h3 {
+
+            font-weight: 600;
+
+            line-height: 1.2;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        h1 {
+
+            font-size: 3rem;
+
+        }
+
+
+
+        h2 {
+
+            font-size: 2.5rem;
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 2rem;
+
+            text-align: center;
+
+        }
+
+
+
+        h3 {
+
+            font-size: 1.4rem;
+
+            color: white;
+
+        }
+
+
+
+        p {
+
+            margin-bottom: 1rem;
+
+            color: var(--text-secondary);
+
+        }
+
+
+
+        a {
+
+            text-decoration: none;
+
+            color: var(--accent-cyan);
+
+            transition: color 0.3s ease;
+
+        }
+
+
+
+        a:hover {
+
+            color: white;
+
+        }
+
+
+
+        section {
+
+            padding: 6rem 0;
+
+        }
+
+
+
+        /* Custom Scrollbar */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+
+
+        ::-webkit-scrollbar-track {
+
+            background: var(--bg-dark);
+
+        }
+
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background: var(--bg-card);
+
+            border-radius: 10px;
+
+        }
+
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: var(--accent-purple);
+
+        }
+
+
+
+        /* ========================================
+
+        MOUSE AURA EFFECT
+
+        ========================================
+
+        */
+
+        #aura {
+
+            position: fixed;
+
+            width: 400px;
+
+            height: 400px;
+
+            background: radial-gradient(circle, rgba(0, 245, 212, 0.05) 0%, rgba(0, 245, 212, 0) 60%);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            transform: translate(-50%, -50%);
+
+            transition: width 0.3s ease, height 0.3s ease;
+
+            z-index: 0;
+
+        }
+
+
+
+
+
+        /* ========================================
+
+        NAVIGATION
+
+        ========================================
+
+        */
+
+        .navbar {
+
+            position: fixed;
+
+            width: 100%;
+
+            top: 0;
+
+            left: 0;
+
+            background: rgba(17, 19, 25, 0.8);
+
+            backdrop-filter: blur(10px);
+
+            z-index: 1000;
+
+            padding: 1rem 0;
+
+            border-bottom: 1px solid var(--bg-card);
+
+        }
+
+
+
+        .navbar .container {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .nav-logo {
+
+            font-size: 1.5rem;
+
+            font-weight: 700;
+
+            color: white;
+
+            font-family: 'Fira Code', monospace;
+
+        }
+
+
+
+        .nav-logo span {
+
+            color: var(--accent-cyan);
+
+        }
+
+
+
+        .nav-links {
+
+            list-style: none;
+
+            display: flex;
+
+        }
+
+
+
+        .nav-links li {
+
+            margin-left: 1.2rem;
+
+            /* Reduced margin */
+
+        }
+
+
+
+        .nav-links a {
+
+            font-weight: 500;
+
+            font-size: 0.9rem;
+
+            /* Slightly smaller */
+
+            padding-bottom: 0.25rem;
+
+            position: relative;
+
+        }
+
+
+
+        .nav-links a::after {
+
+            content: '';
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 0;
+
+            height: 2px;
+
+            background: var(--accent-cyan);
+
+            transition: width 0.3s ease;
+
+        }
+
+
+
+        .nav-links a:hover::after {
+
+            width: 100%;
+
+        }
+
+
+
+        /* ========================================
+
+        HERO SECTION
+
+        ========================================
+
+        */
+
+        .hero {
+
+            height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding-top: 60px;
+
+            /* Offset for navbar */
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+
+
+        .hero h1 {
+
+            font-size: 4rem;
+
+            color: white;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .hero .subtitle {
+
+            font-size: 2rem;
+
+            color: var(--accent-cyan);
+
+            font-family: 'Fira Code', monospace;
+
+            margin-bottom: 2rem;
+
+            min-height: 2.5em;
+
+            /* Reserve space */
+
+        }
+
+
+
+        /* --- Typing Animation --- */
+
+        .typing-effect {
+
+            display: inline-block;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            border-right: .15em solid var(--accent-cyan);
+
+            /* The cursor */
+
+            animation:
+
+                typing 3.5s steps(30, end) infinite alternate,
+
+                blink-caret .75s step-end infinite;
+
+        }
+
+
+
+        @keyframes typing {
+
+            from {
+
+                width: 0
+            }
+
+
+
+            to {
+
+                width: 100%
+            }
+
+        }
+
+
+
+        @keyframes blink-caret {
+
+
+
+            from,
+
+            to {
+
+                border-color: transparent
+            }
+
+
+
+            50% {
+
+                border-color: var(--accent-cyan)
+            }
+
+        }
+
+
+
+        .cta-button {
+
+            display: inline-block;
+
+            background: var(--accent-cyan);
+
+            color: var(--bg-dark);
+
+            font-size: 1.1rem;
+
+            font-weight: 600;
+
+            padding: 0.8rem 2.5rem;
+
+            border-radius: 50px;
+
+            border: 2px solid var(--accent-cyan);
+
+            transition: all 0.3s ease;
+
+            cursor: pointer;
+
+            /* Added for button-like <a> tags */
+
+        }
+
+
+
+        .cta-button:hover {
+
+            background: transparent;
+
+            color: var(--accent-cyan);
+
+            transform: scale(1.05);
+
+            box-shadow: 0 0 15px var(--accent-cyan), 0 0 25px var(--accent-cyan);
+
+        }
+
+
+
+        /* ========================================
+
+        ABOUT ME SECTION
+
+        ========================================
+
+        */
+
+        #about {
+
+            background: var(--bg-card);
+
+            border-top: 1px solid #2a2d34;
+
+            border-bottom: 1px solid #2a2d34;
+
+        }
+
+
+
+        .about-content {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 3rem;
+
+            align-items: center;
+
+        }
+
+
+
+        .about-text h3 {
+
+            color: var(--accent-cyan);
+
+            font-size: 1.8rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .about-text .lead {
+
+            font-size: 1.1rem;
+
+            color: var(--text-primary);
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .philosophy-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 1.5rem;
+
+        }
+
+
+
+        .philosophy-item {
+
+            background: var(--bg-dark);
+
+            padding: 1.5rem;
+
+            border-radius: 10px;
+
+            border-left: 4px solid var(--accent-purple);
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .philosophy-item:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        .philosophy-item i {
+
+            font-size: 1.5rem;
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .philosophy-item h4 {
+
+            font-size: 1.1rem;
+
+            color: white;
+
+            font-family: 'Fira Code', monospace;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .philosophy-item p {
+
+            font-size: 0.9rem;
+
+            margin-bottom: 0;
+
+        }
+
+
+
+        /* ========================================
+
+        SKILLS SECTION
+
+        ========================================
+
+        */
+
+        .skills-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+            gap: 1.5rem;
+
+            text-align: center;
+
+        }
+
+
+
+        .skill-card {
+
+            background: var(--bg-card);
+
+            padding: 2rem 1rem;
+
+            border-radius: 10px;
+
+            border-bottom: 3px solid transparent;
+
+            transition: all 0.3s ease;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .skill-card:hover {
+
+            transform: translateY(-10px);
+
+            border-bottom-color: var(--accent-purple);
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        .skill-card i {
+
+            font-size: 3rem;
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .skill-card h3 {
+
+            font-size: 1.1rem;
+
+            /* Adjusted for smaller cards */
+
+            color: var(--text-primary);
+
+            margin: 0;
+
+            font-family: 'Fira Code', monospace;
+
+        }
+
+
+
+        /* ========================================
+
+        PROJECTS SECTION
+
+        ========================================
+
+        */
+
+        .projects-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+            gap: 2rem;
+
+        }
+
+
+
+        .project-card {
+
+            background: var(--bg-dark);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease-in-out;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .project-card:hover .project-image img {
+
+            transform: scale(1.1);
+
+        }
+
+
+
+        .project-image {
+
+            height: 220px;
+
+            overflow: hidden;
+
+            /* For zoom hover */
+
+        }
+
+
+
+        .project-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.4s ease;
+
+        }
+
+
+
+        .project-content {
+
+            padding: 1.5rem;
+
+            flex-grow: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .project-content h3 {
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 0.5rem;
+
+            font-size: 1.3rem;
+
+        }
+
+
+
+        .project-tags {
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .project-tags span {
+
+            background: var(--bg-card);
+
+            color: var(--text-secondary);
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.8rem;
+
+            padding: 0.25rem 0.5rem;
+
+            border-radius: 5px;
+
+            margin-right: 0.5rem;
+
+            display: inline-block;
+
+            margin-top: 0.5rem;
+
+        }
+
+
+
+        .project-links {
+
+            margin-top: auto;
+
+            /* Pushes links to the bottom */
+
+            padding-top: 1rem;
+
+            /* Adds space above links */
+
+        }
+
+
+
+        .project-links a {
+
+            font-size: 1.2rem;
+
+            margin-right: 1rem;
+
+            color: var(--text-secondary);
+
+            cursor: pointer;
+
+        }
+
+
+
+        .project-links a:hover {
+
+            color: var(--accent-cyan);
+
+            transform: scale(1.1);
+
+        }
+
+
+
+        /* ========================================
+
+        EXPERIENCE SECTION
+
+        ========================================
+
+        */
+
+        #experience {
+
+            background: var(--bg-card);
+
+            border-top: 1px solid #2a2d34;
+
+            border-bottom: 1px solid #2a2d34;
+
+        }
+
+
+
+        .timeline {
+
+            position: relative;
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        /* The vertical line */
+
+        .timeline::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 4px;
+
+            background-color: var(--accent-purple);
+
+            top: 0;
+
+            bottom: 0;
+
+            left: 50%;
+
+            margin-left: -2px;
+
+            box-shadow: 0 0 15px var(--accent-purple);
+
+        }
+
+
+
+        .timeline-item {
+
+            padding: 1rem 3rem;
+
+            position: relative;
+
+            background-color: inherit;
+
+            width: 50%;
+
+        }
+
+
+
+        /* The circles on the timeline */
+
+        .timeline-item::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 20px;
+
+            right: -10px;
+
+            background-color: var(--accent-cyan);
+
+            border: 4px solid var(--bg-dark);
+
+            top: 25px;
+
+            border-radius: 50%;
+
+            z-index: 1;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .timeline-item.left {
+
+            left: 0;
+
+        }
+
+
+
+        .timeline-item.right {
+
+            left: 50%;
+
+        }
+
+
+
+        /* Place containers to the left */
+
+        .timeline-item.left::before {
+
+            content: " ";
+
+            height: 0;
+
+            position: absolute;
+
+            top: 22px;
+
+            width: 0;
+
+            z-index: 1;
+
+            right: 20px;
+
+            border: medium solid var(--bg-dark);
+
+            border-width: 10px 0 10px 10px;
+
+            border-color: transparent transparent transparent var(--bg-dark);
+
+        }
+
+
+
+        /* Place containers to the right */
+
+        .timeline-item.right::before {
+
+            content: " ";
+
+            height: 0;
+
+            position: absolute;
+
+            top: 22px;
+
+            width: 0;
+
+            z-index: 1;
+
+            left: 20px;
+
+            border: medium solid var(--bg-dark);
+
+            border-width: 10px 10px 10px 0;
+
+            border-color: transparent var(--bg-dark) transparent transparent;
+
+        }
+
+
+
+        /* Fix the circle for right containers */
+
+        .timeline-item.right::after {
+
+            left: -10px;
+
+        }
+
+
+
+        .timeline-content {
+
+            padding: 1.5rem 2rem;
+
+            background-color: var(--bg-dark);
+
+            position: relative;
+
+            border-radius: 10px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .timeline-item:hover .timeline-content {
+
+            transform: scale(1.03);
+
+            box-shadow: 0 10px 30px var(--shadow-color);
+
+        }
+
+
+
+        .timeline-item:hover::after {
+
+            transform: scale(1.2);
+
+            background-color: white;
+
+        }
+
+
+
+        .timeline-content h3 {
+
+            font-size: 1.3rem;
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .timeline-date {
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.9rem;
+
+            font-weight: bold;
+
+            color: var(--accent-purple);
+
+            margin-bottom: 0.5rem;
+
+            display: block;
+
+        }
+
+
+
+        .timeline-company {
+
+            font-size: 1rem;
+
+            font-style: italic;
+
+            color: var(--text-primary);
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .timeline-content p {
+
+            font-size: 0.9rem;
+
+            margin-bottom: 0;
+
+        }
+
+
+
+        /* ========================================
+
+        NEW: TESTIMONIALS SECTION
+
+        ========================================
+
+        */
+
+        #testimonials {
+
+            background-color: var(--bg-dark);
+
+        }
+
+
+
+        .testimonial-slider-container {
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            background: var(--bg-card);
+
+            padding: 2.5rem 3rem;
+
+            border-radius: 10px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-left: 4px solid var(--accent-cyan);
+
+        }
+
+
+
+        .testimonial-slider {
+
+            display: flex;
+
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+
+
+        .testimonial-slide {
+
+            min-width: 100%;
+
+            opacity: 0;
+
+            transition: opacity 0.5s ease-in-out;
+
+            visibility: hidden;
+
+            position: absolute;
+
+            top: 2.5rem;
+
+            /* Match padding */
+
+            left: 3rem;
+
+            /* Match padding */
+
+            right: 3rem;
+
+        }
+
+
+
+        .testimonial-slide.active-slide {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            position: relative;
+
+            top: 0;
+
+            left: 0;
+
+        }
+
+
+
+        .testimonial-slide i {
+
+            font-size: 2.5rem;
+
+            color: var(--accent-purple);
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .testimonial-text {
+
+            font-size: 1.2rem;
+
+            font-style: italic;
+
+            color: var(--text-primary);
+
+            line-height: 1.7;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .testimonial-author {
+
+            font-weight: 600;
+
+            color: var(--accent-cyan);
+
+            font-size: 1.1rem;
+
+        }
+
+
+
+        .testimonial-author-title {
+
+            font-size: 0.9rem;
+
+            color: var(--text-secondary);
+
+            font-family: 'Fira Code', monospace;
+
+        }
+
+
+
+        .slider-nav {
+
+            position: absolute;
+
+            bottom: 1.5rem;
+
+            right: 2rem;
+
+            display: flex;
+
+            gap: 1rem;
+
+        }
+
+
+
+        .slider-btn {
+
+            background: var(--bg-dark);
+
+            border: 2px solid var(--bg-card);
+
+            color: var(--text-secondary);
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            font-size: 1.2rem;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .slider-btn:hover {
+
+            background: var(--accent-purple);
+
+            color: white;
+
+            border-color: var(--accent-purple);
+
+        }
+
+
+
+        /* ========================================
+
+        NEW: BLOG SECTION
+
+        ========================================
+
+        */
+
+        #blog {
+
+            background: var(--bg-card);
+
+        }
+
+
+
+        .blog-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+            gap: 2rem;
+
+        }
+
+
+
+        /* Re-use project-card styles */
+
+        .blog-card {
+
+            background: var(--bg-dark);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition: all 0.3s ease-in-out;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .blog-card:hover {
+
+            transform: translateY(-10px);
+
+            box-shadow: 0 10px 30px var(--shadow-color);
+
+        }
+
+
+
+        .blog-image {
+
+            height: 220px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .blog-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.4s ease;
+
+        }
+
+
+
+        .blog-card:hover .blog-image img {
+
+            transform: scale(1.1);
+
+        }
+
+
+
+        .blog-content {
+
+            padding: 1.5rem;
+
+            flex-grow: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .blog-date {
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.8rem;
+
+            color: var(--text-secondary);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .blog-content h3 {
+
+            color: var(--accent-cyan);
+
+            margin-bottom: 0.5rem;
+
+            font-size: 1.3rem;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        .blog-content a {
+
+            font-weight: 600;
+
+            margin-top: auto;
+
+            padding-top: 1rem;
+
+        }
+
+
+
+        .blog-content a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+
+        /* ========================================
+
+        FOOTER
+
+        ========================================
+
+        */
+
+        footer {
+
+            text-align: center;
+
+            padding: 4rem 0 2rem;
+
+        }
+
+
+
+        .social-icons {
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .social-icons a {
+
+            font-size: 1.8rem;
+
+            margin: 0 1rem;
+
+            color: var(--text-secondary);
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .social-icons a:hover {
+
+            color: var(--accent-purple);
+
+            transform: translateY(-5px);
+
+        }
+
+
+
+        footer p {
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        /* ========================================
+
+        PRE-LOAD GATE STYLES
+
+        ========================================
+
+        */
+
+        .pre-load-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100vh;
+
+            background: rgba(17, 19, 25, 0.7);
+
+            backdrop-filter: blur(8px);
+
+            z-index: 9999;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 1rem;
+
+            opacity: 1;
+
+            transition: opacity 0.5s ease-out;
+
+        }
+
+
+
+        .gate-modal {
+
+            background: var(--bg-card);
+
+            padding: 2.5rem;
+
+            border-radius: 10px;
+
+            box-shadow: 0 10px 40px var(--shadow-color);
+
+            text-align: center;
+
+            max-width: 500px;
+
+            width: 100%;
+
+        }
+
+
+
+        .gate-modal h2 {
+
+            color: var(--accent-cyan);
+
+            font-size: 1.8rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .gate-modal h3 {
+
+            color: var(--text-primary);
+
+            font-size: 1.1rem;
+
+            font-weight: 400;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        .gate-buttons {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 1rem;
+
+        }
+
+
+
+        .gate-btn {
+
+            display: block;
+
+            width: 100%;
+
+            background: var(--bg-dark);
+
+            color: var(--text-primary);
+
+            font-size: 1.1rem;
+
+            font-weight: 600;
+
+            padding: 0.8rem 2.5rem;
+
+            border-radius: 50px;
+
+            border: 2px solid var(--bg-card);
+
+            transition: all 0.3s ease;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .gate-btn:hover {
+
+            background: var(--accent-purple);
+
+            color: white;
+
+            border-color: var(--accent-purple);
+
+            transform: scale(1.02);
+
+        }
+
+
+
+        #gate-question-2,
+
+        #gate-kicked {
+
+            display: none;
+
+        }
+
+
+
+        /* ========================================
+
+        MODAL STYLES (PROJECT, CONTACT, SKILL)
+
+        ========================================
+
+        */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(17, 19, 25, 0.7);
+
+            backdrop-filter: blur(8px);
+
+            z-index: 2000;
+
+            display: none;
+
+            /* Hidden by default */
+
+            justify-content: center;
+
+            align-items: center;
+
+            opacity: 0;
+
+            transition: opacity 0.3s ease-in-out;
+
+        }
+
+
+
+        .modal-overlay.modal-active {
+
+            display: flex;
+
+            opacity: 1;
+
+        }
+
+
+
+        .modal-content {
+
+            background: var(--bg-card);
+
+            padding: 2.5rem;
+
+            border-radius: 10px;
+
+            width: 90%;
+
+            max-width: 800px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            position: relative;
+
+            box-shadow: 0 10px 40px var(--shadow-color);
+
+            transform: scale(0.9);
+
+            transition: transform 0.3s ease-in-out;
+
+        }
+
+
+
+        /* Custom scrollbar for modal */
+
+        .modal-content::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+
+
+        .modal-content::-webkit-scrollbar-track {
+
+            background: var(--bg-card);
+
+        }
+
+
+
+        .modal-content::-webkit-scrollbar-thumb {
+
+            background: var(--bg-dark);
+
+            border-radius: 10px;
+
+        }
+
+
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+
+            background: var(--accent-purple);
+
+        }
+
+
+
+
+
+        .modal-overlay.modal-active .modal-content {
+
+            transform: scale(1);
+
+        }
+
+
+
+        .modal-close-btn {
+
+            position: absolute;
+
+            top: 1rem;
+
+            right: 1.5rem;
+
+            font-size: 2.5rem;
+
+            color: var(--text-secondary);
+
+            cursor: pointer;
+
+            line-height: 1;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .modal-close-btn:hover {
+
+            color: var(--accent-cyan);
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        /* Project Modal */
+
+        #modal-project-image {
+
+            width: 100%;
+
+            height: 300px;
+
+            border-radius: 8px;
+
+            background: var(--bg-dark);
+
+            /* Fallback background */
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 2rem;
+
+            overflow: hidden;
+
+        }
+
+
+
+        #modal-project-img-tag {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+        #modal-project-title {
+
+            color: var(--accent-cyan);
+
+            font-size: 2rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        #modal-project-tags {
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        #modal-project-tags span {
+
+            background: var(--bg-dark);
+
+            color: var(--text-secondary);
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.9rem;
+
+            padding: 0.3rem 0.6rem;
+
+            border-radius: 5px;
+
+            margin-right: 0.5rem;
+
+            display: inline-block;
+
+            margin-top: 0.5rem;
+
+        }
+
+
+
+        #modal-project-description {
+
+            color: var(--text-primary);
+
+            line-height: 1.7;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        #modal-project-links {
+
+            margin-top: 1rem;
+
+        }
+
+
+
+        #modal-project-links a {
+
+            margin-right: 1.5rem;
+
+            font-size: 1.1rem;
+
+            font-weight: 500;
+
+        }
+
+
+
+        #modal-project-links a i {
+
+            margin-right: 0.5rem;
+
+        }
+
+
+
+        /* Contact Modal */
+
+        #contact-modal-title {
+
+            color: var(--accent-cyan);
+
+            font-size: 2rem;
+
+            margin-bottom: 2rem;
+
+            text-align: center;
+
+        }
+
+
+
+        .form-group {
+
+            margin-bottom: 1.5rem;
+
+            position: relative;
+
+        }
+
+
+
+        .form-group label {
+
+            font-family: 'Fira Code', monospace;
+
+            font-size: 0.9rem;
+
+            color: var(--text-secondary);
+
+            display: block;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        #contact-form input[type="text"],
+
+        #contact-form input[type="email"],
+
+        #contact-form textarea {
+
+            width: 100%;
+
+            padding: 0.8rem 1rem;
+
+            background-color: var(--bg-dark);
+
+            border: 2px solid var(--bg-card);
+
+            border-radius: 8px;
+
+            color: var(--text-primary);
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 1rem;
+
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        }
+
+
+
+        #contact-form input[type="text"]:focus,
+
+        #contact-form input[type="email"]:focus,
+
+        #contact-form textarea:focus {
+
+            outline: none;
+
+            border-color: var(--accent-cyan);
+
+            box-shadow: 0 0 10px var(--shadow-color);
+
+        }
+
+
+
+        #contact-form textarea {
+
+            resize: vertical;
+
+            min-height: 120px;
+
+        }
+
+
+
+        #contact-form button[type="submit"] {
+
+            width: 100%;
+
+            margin-top: 1rem;
+
+            border: none;
+
+        }
+
+
+
+        /* Skill Modal */
+
+        #modal-skill-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 1.5rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        #modal-skill-header i {
+
+            font-size: 3.5rem;
+
+            color: var(--accent-cyan);
+
+        }
+
+
+
+        #modal-skill-title {
+
+            color: var(--accent-cyan);
+
+            font-size: 2rem;
+
+            margin-bottom: 0;
+
+        }
+
+
+
+        #modal-skill-image {
+
+            width: 100%;
+
+            height: 250px;
+
+            border-radius: 8px;
+
+            object-fit: cover;
+
+            margin-bottom: 2rem;
+
+            background: var(--bg-dark);
+
+        }
+
+
+
+        .skill-details-col h4 {
+
+            color: white;
+
+            font-size: 1.3rem;
+
+            font-family: 'Fira Code', monospace;
+
+            border-bottom: 2px solid var(--accent-purple);
+
+            padding-bottom: 0.5rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .skill-details-col p {
+
+            font-size: 0.95rem;
+
+            line-height: 1.7;
+
+        }
+
+
+
+        /* ========================================
+
+        RESPONSIVE STYLES
+
+        ========================================
+
+        */
+
+        @media (max-width: 900px) {
+
+
+
+            /* Center the timeline */
+
+            .timeline::after {
+
+                left: 31px;
+
+            }
+
+
+
+            .timeline-item {
+
+                width: 100%;
+
+                padding-left: 70px;
+
+                padding-right: 25px;
+
+            }
+
+
+
+            .timeline-item.left,
+
+            .timeline-item.right {
+
+                left: 0%;
+
+            }
+
+
+
+            .timeline-item.left::before,
+
+            .timeline-item.right::before {
+
+                left: 60px;
+
+                border: medium solid var(--bg-dark);
+
+                border-width: 10px 10px 10px 0;
+
+                border-color: transparent var(--bg-dark) transparent transparent;
+
+            }
+
+
+
+            .timeline-item.left::after,
+
+            .timeline-item.right::after {
+
+                left: 21px;
+
+            }
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            .hero h1 {
+
+                font-size: 3rem;
+
+            }
+
+
+
+            .hero .subtitle {
+
+                font-size: 1.5rem;
+
+            }
+
+
+
+            h2 {
+
+                font-size: 2rem;
+
+            }
+
+
+
+            .nav-links {
+
+                display: none;
+
+                /* Simple responsive, could be burger */
+
+            }
+
+
+
+            .about-content {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+
+            .skills-grid {
+
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+                gap: 1rem;
+
+            }
+
+
+
+            .skill-card i {
+
+                font-size: 2.5rem;
+
+            }
+
+
+
+            .skill-card h3 {
+
+                font-size: 1rem;
+
+            }
+
+
+
+            .testimonial-slider-container {
+
+                padding: 2rem 1.5rem;
+
+            }
+
+
+
+            .testimonial-text {
+
+                font-size: 1.1rem;
+
+            }
+
+
+
+            .slider-nav {
+
+                position: static;
+
+                justify-content: center;
+
+                margin-top: 1.5rem;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+
+    <!-- ========================================
+
+    PRE-LOAD GATE
+
+    ========================================
+
+    -->
+
+    <div class="pre-load-overlay" id="pre-load-overlay">
+
+        <div class="gate-modal">
+
+
+
+            <!-- Question 1 -->
+
+            <div id="gate-question-1">
+
+                <h2>Are you a developer or Looking for a developer?</h2>
+
+                <div class="gate-buttons">
+
+                    <button class="gate-btn" id="btn-looking">Looking for a developer</button>
+
+                    <button class="gate-btn" id="btn-is-dev">I am a developer</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Question 2 (Hidden) -->
+
+            <div id="gate-question-2">
+
+                <h2>Then why are you here?</h2>
+
+                <h3 style="font-family: 'Fira Code', monospace;">Are you trying to steal ideas?</h3>
+
+                <div class="gate-buttons">
+
+                    <button class="gate-btn" id="btn-yes-steal">Yes, totally</button>
+
+                    <button class="gate-btn" id="btn-no-steal">No, just admiring</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Kicked Message (Hidden) -->
+
+            <div id="gate-kicked">
+
+                <h2>Access Denied</h2>
+
+                <h3 style="color: var(--accent-purple);">Idea stealers are not welcome. 😜</h3>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Mouse Aura -->
+
+    <div id="aura"></div>
+
+
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <a href="#" class="nav-logo">&lt;Ashik<span>/</span>&gt;</a>
+
+            <ul class="nav-links">
+
+                <li><a href="#hero">Home</a></li>
+
+                <li><a href="#about">About</a></li>
+
+                <li><a href="#skills">Skills</a></li>
+
+                <li><a href="#projects">Projects</a></li>
+
+                <li><a href="#experience">Experience</a></li>
+
+                <!-- NEW: Navbar Links -->
+
+                <li><a href="#testimonials">Praise</a></li>
+
+                <li><a href="#blog">Blog</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Hero Section -->
+
+    <header class="hero" id="hero">
+
+        <div class="container">
+
+            <h1>Ashikul Islam Onik</h1>
+
+            <h2 class="subtitle">I'm a <span class="typing-effect">Lead Full-Stack Architect</span></h2>
+
+            <p>I architect, build, and scale complex, high-performance web applications from concept to cloud.</p>
+
+            <a href="#projects" class="cta-button">View My Work</a>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+
+        <!-- ========================================
+
+        ABOUT ME SECTION
+
+        ========================================
+
+        -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="about-content">
+
+                    <div class="about-text">
+
+                        <h2>About Me</h2>
+
+                        <h3>A Passionate Problem Solver.</h3>
+
+                        <p class="lead">
+
+                            I'm not just a developer; I'm an architect. With over 8 years of experience (you can change
+
+                            this!), I thrive on solving complex problems and turning ambitious ideas into reality. My
+
+                            expertise spans the entire stack, from crafting pixel-perfect frontend experiences to
+
+                            designing robust, scalable backend systems and deploying them to the cloud.
+
+                        </p>
+
+                        <p>
+
+                            I believe in writing clean, maintainable, and efficient code. I'm a strong advocate for best
+
+                            practices, automated testing, and agile methodologies. My goal is to not only build features
+
+                            but to build systems that last and teams that succeed.
+
+                        </p>
+
+                    </div>
+
+                    <div class="philosophy-grid">
+
+                        <div class="philosophy-item">
+
+                            <i class="fas fa-rocket"></i>
+
+                            <h4>Performance</h4>
+
+                            <p>Building applications that are not just functional, but lightning fast.</p>
+
+                        </div>
+
+                        <div class="philosophy-item">
+
+                            <i class="fas fa-sitemap"></i>
+
+                            <h4>Scalability</h4>
+
+                            <p>Designing systems that can grow from one user to millions with ease.</p>
+
+                        </div>
+
+                        <div class="philosophy-item">
+
+                            <i class="fas fa-shield-alt"></i>
+
+                            <h4>Security</h4>
+
+                            <p>Integrating security as a core part of the development process, not an afterthought.</p>
+
+                        </div>
+
+                        <div class="philosophy-item">
+
+                            <i class="fas fa-user-check"></i>
+
+                            <h4>User Experience</h4>
+
+                            <p>Crafting intuitive and accessible interfaces that users love.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Skills Section -->
+
+        <section id="skills">
+
+            <div class="container">
+
+                <h2>My Tech Arsenal</h2>
+
+                <div class="skills-grid">
+
+                    <!-- Row 1 -->
+
+                    <div class="skill-card" data-skill-name="HTML5" data-skill-icon="fab fa-html5"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=HTML5"
+                        data-skill-description="The bedrock of the web. I use semantic HTML5 to build accessible and well-structured applications."
+                        data-skill-creates="Accessible website foundations, semantic layouts for SEO, and email templates.">
+
+                        <i class="fab fa-html5"></i>
+
+                        <h3>HTML5</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="CSS3" data-skill-icon="fab fa-css3-alt"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=CSS3"
+                        data-skill-description="I craft beautiful, responsive, and complex layouts using modern CSS, including Flexbox, Grid, and custom animations."
+                        data-skill-creates="Responsive designs, complex animations, and pixel-perfect UIs.">
+
+                        <i class="fab fa-css3-alt"></i>
+
+                        <h3>CSS3</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="JavaScript" data-skill-icon="fab fa-js-square"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=JavaScript+ES6+"
+                        data-skill-description="My core language. Fluent in modern ES6+ features, async/await, and the DOM."
+                        data-skill-creates="Interactive UIs, API clients, and complex frontend logic.">
+
+                        <i class="fab fa-js-square"></i>
+
+                        <h3>JavaScript</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="React" data-skill-icon="fab fa-react"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=React.js"
+                        data-skill-description="My go-to library for building dynamic, component-based user interfaces."
+                        data-skill-creates="Single Page Applications (SPAs), interactive dashboards, and reusable component libraries.">
+
+                        <i class="fab fa-react"></i>
+
+                        <h3>React</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Node.js" data-skill-icon="fab fa-node-js"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Node.js"
+                        data-skill-description="I use Node.js to build fast, scalable, and non-blocking backend servers and APIs."
+                        data-skill-creates="RESTful APIs, real-time apps with WebSockets, and server-side logic.">
+
+                        <i class="fab fa-node-js"></i>
+
+                        <h3>Node.js</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Laravel" data-skill-icon="fab fa-laravel"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Laravel"
+                        data-skill-description="A powerful PHP framework I use for rapid development of full-stack applications with an elegant syntax."
+                        data-skill-creates="Robust CMS, e-commerce platforms, and applications needing auth and ORM out-of-the-box.">
+
+                        <i class="fab fa-laravel"></i>
+
+                        <h3>Laravel</h3>
+
+                    </div>
+
+                    <!-- Row 2 -->
+
+                    <div class="skill-card" data-skill-name="PHP" data-skill-icon="fab fa-php"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=PHP"
+                        data-skill-description="The classic server-side language. I have extensive experience building and maintaining modern PHP applications."
+                        data-skill-creates="Custom themes/plugins (e.g., WordPress), legacy system maintenance, and server-side scripts.">
+
+                        <i class="fab fa-php"></i>
+
+                        <h3>PHP</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="MySQL" data-skill-icon="fas fa-database"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=MySQL"
+                        data-skill-description="My primary relational database. I design efficient schemas and write complex queries."
+                        data-skill-creates="Normalized database schemas, secure data storage, and integration with ORMs.">
+
+                        <i class="fas fa-database"></i>
+
+                        <h3>MySQL</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="MongoDB" data-skill-icon="fas fa-database"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=MongoDB"
+                        data-skill-description="My go-to NoSQL database for flexible data structures and high-speed operations, especially with Node.js."
+                        data-skill-creates="User profiles, content management systems, and apps with unstructured data.">
+
+                        <i class="fas fa-database" style="font-weight: 900;"></i>
+
+                        <h3>MongoDB</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Python" data-skill-icon="fab fa-python"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Python"
+                        data-skill-description="A versatile language I use for backend development (Flask/FastAPI), scripting, and data tasks."
+                        data-skill-creates="Data scraping scripts, simple APIs, automation tasks, and AI/ML-powered backends.">
+
+                        <i class="fab fa-python"></i>
+
+                        <h3>Python</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Git" data-skill-icon="fab fa-git-alt"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Git"
+                        data-skill-description="Essential for version control. I'm proficient with branching, merging, rebasing, and collaborative workflows."
+                        data-skill-creates="Clean commit histories, collaborative codebases, and CI/CD pipeline integration.">
+
+                        <i class="fab fa-git-alt"></i>
+
+                        <h3>Git</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Docker" data-skill-icon="fab fa-docker"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Docker"
+                        data-skill-description="I containerize applications to ensure consistent, isolated, and scalable deployments."
+                        data-skill-creates="Dockerfiles, docker-compose setups, and microservice architectures.">
+
+                        <i class="fab fa-docker"></i>
+
+                        <h3>Docker</h3>
+
+                    </div>
+
+                    <!-- Row 3 -->
+
+                    <div class="skill-card" data-skill-name="TypeScript" data-skill-icon="fas fa-code"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=TypeScript"
+                        data-skill-description="I use TypeScript to bring static typing to JavaScript, catching errors early and making code more maintainable."
+                        data-skill-creates="Large-scale React/Node.js applications, robust libraries, and type-safe APIs.">
+
+                        <i class="fas fa-code"></i>
+
+                        <h3>TypeScript</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Next.js" data-skill-icon="fas fa-bolt"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Next.js"
+                        data-skill-description="My framework of choice for production-grade React apps, enabling SSR, SSG, and API routes."
+                        data-skill-creates="High-performance websites, SEO-friendly SPAs, and full-stack React applications.">
+
+                        <i class="fas fa-bolt"></i>
+
+                        <h3>Next.js</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="GraphQL" data-skill-icon="fas fa-project-diagram"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=GraphQL"
+                        data-skill-description="A powerful query language for APIs. I use it to build flexible, efficient data-fetching for clients."
+                        data-skill-creates="Decoupled frontend/backend systems, efficient mobile APIs, and complex data graphs.">
+
+                        <i class="fas fa-project-diagram"></i>
+
+                        <h3>GraphQL</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="AWS" data-skill-icon="fab fa-aws"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=AWS"
+                        data-skill-description="Proficient in core AWS services for building scalable, secure, and highly available cloud infrastructure."
+                        data-skill-creates="Serverless APIs (Lambda), container hosting (ECS/EKS), S3 storage, and RDS databases.">
+
+                        <i class="fab fa-aws"></i>
+
+                        <h3>AWS</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Kubernetes" data-skill-icon="fas fa-helicopter"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Kubernetes"
+                        data-skill-description="I use K8s to orchestrate, automate, and scale containerized applications for production."
+                        data-skill-creates="Auto-scaling microservices, zero-downtime deployments, and complex service meshes.">
+
+                        <i class="fas fa-helicopter"></i>
+
+                        <h3>Kubernetes</h3>
+
+                    </div>
+
+                    <div class="skill-card" data-skill-name="Terraform" data-skill-icon="fas fa-cloud-upload-alt"
+                        data-skill-image-url="https://placehold.co/600x400/1a1d24/00F5D4?text=Terraform"
+                        data-skill-description="My tool for Infrastructure as Code (IaC). I define and provision cloud infrastructure declaratively."
+                        data-skill-creates="Reproducible cloud environments, automated infrastructure pipelines, and multi-cloud management.">
+
+                        <i class="fas fa-cloud-upload-alt"></i>
+
+                        <h3>Terraform</h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Projects Section -->
+
+        <section id="projects">
+
+            <div class="container">
+
+                <h2>Featured Projects</h2>
+
+                <div class="projects-grid">
+
+                    <!-- Project 1 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1557821552-17105176677c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDR8fGUtY29tbWVyY2V8ZW58MHx8fHwxNzE5MjM0ODU1fDA&ixlib=rb-4.0.3&q=80&w=800" alt="E-commerce Platform">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>E-commerce Platform</h3>
+
+                            <p>Full-stack e-commerce site with product management, user auth, and shopping cart.</p>
+
+                            <div class="project-tags">
+
+                                <span>Laravel</span>
+
+                                <span>Bootstrap</span>
+
+                                <span>MySQL</span>
+
+                                <span>PHP</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1557821552-17105176677c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDR8fGUtY29tbWVyY2V8ZW58MHx8fHwxNzE5MjM0ODU1fDA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="E-commerce Platform" data-tags="Laravel,Bootstrap,MySQL,PHP"
+                                    data-description="A full-stack e-commerce site built with Laravel and Bootstrap, featuring product management, user authentication, and a complete shopping cart system. The backend handles inventory, orders, and payments, while the frontend provides a responsive and user-friendly shopping experience."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 2 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDd8fGNvZGluZyUyMHdlYnNpdGV8ZW58MHx8fHwxNzE5MjM0OTIyfDA&ixlib=rb-4.0.3&q=80&w=800" alt="Dynamic Portfolio Website">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Dynamic Portfolio Website</h3>
+
+                            <p>A dynamic personal portfolio built with React to showcase projects and skills.</p>
+
+                            <div class="project-tags">
+
+                                <span>React</span>
+
+                                <span>CSS3</span>
+
+                                <span>JavaScript</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDd8fGNvZGluZyUyMHdlYnNpdGV8ZW58MHx8fHwxNzE5MjM0OTIyfDA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Dynamic Portfolio Website"
+                                    data-tags="React,CSS3,JavaScript,Framer Motion"
+                                    data-description="A dynamic personal portfolio built with React to showcase projects and skills. This site features a modern, responsive design, smooth page transitions with Framer Motion, and a fully functional contact form. The component-based architecture makes it easily updatable."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 3 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDN8fGRhc2hib2FyZHxlbnwwfHx8fDE3MTkyMzQ5NjV8MA&ixlib=rb-4.0.3&q=80&w=800" alt="Landing Page System">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Landing Page System</h3>
+
+                            <p>A multi-tenant landing page manager built with PHP & MySQL.</p>
+
+                            <div class="project-tags">
+
+                                <span>PHP</span>
+
+                                <span>MySQL</span>
+
+                                <span>HTML</span>
+
+                                <span>Admin Panel</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDN8fGRhc2hib2FyZHxlbnwwfHx8fDE3MTkyMzQ5NjV8MA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Multi-Tenant Landing Page System"
+                                    data-tags="PHP,MySQL,HTML,CSS,Admin Panel"
+                                    data-description="This system allows an admin to create and manage multiple, distinct landing pages from a single backend. Built with pure PHP and MySQL, it features a secure admin panel for content updates, template selection, and analytics tracking for each tenant (landing page)."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 4 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://ik.imagekit.io/ably/ghost/prod/2023/01/build-a-realtime-chat-app-from-scratch--1-.png?tr=w-1728,q-50" alt="Real-Time Chat App">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Real-Time Chat App</h3>
+
+                            <p>Full-stack, real-time chat application using Node.js and WebSockets.</p>
+
+                            <div class="project-tags">
+
+                                <span>Node.js</span>
+
+                                <span>WebSockets</span>
+
+                                <span>Socket.io</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1581009137052-c0b2c36131b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDExfHxtZXNzZW5nZXIlMjBhcHAlMjB1aXxlbnwwfHx8fDE3MjE4MTk5Njh8MA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Real-Time Chat App"
+                                    data-tags="Node.js,WebSockets,Express,JavaScript,Socket.io"
+                                    data-description="A full-stack, real-time chat application. This project uses Node.js with Express for the server and Socket.io for managing persistent WebSocket connections, allowing for instant message delivery between multiple clients."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 5 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDJ8fHRvJTIwZG8lMjBsaXN0fGVufDB8fHx8MTcyMTM0NzMwNHww&ixlib=rb-4.0.3&q=80&w=800" alt="Task Management API">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Task Management API</h3>
+
+                            <p>A secure, stateless RESTful API for a 'To-Do' app with Node.js & MongoDB.</p>
+
+                            <div class="project-tags">
+
+                                <span>Node.js</span>
+
+                                <span>MongoDB</span>
+
+                                <span>API</span>
+
+                                <span>JWT</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDJ8fHRvJTIwZG8lMjBsaXN0fGVufDB8fHx8MTcyMTM0NzMwNHww&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Task Management API (Node.js & MongoDB)"
+                                    data-tags="Node.js,MongoDB,Express,API,JWT,Mongoose"
+                                    data-description="A secure, stateless RESTful API for a 'To-Do' or task management application. Built with Node.js and Express, it uses Mongoose to interact with a MongoDB database and JWT (JSON Web Tokens) for user authentication and route protection."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 6 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDR8fHB5dGhvbiUyMGRhdGF8ZW58MHx8fHwxNzIwODAyODcyfDA&ixlib=rb-4.0.3&q=80&w=800" alt="Data Scraper & Dashboard">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Data Scraper & Dashboard</h3>
+
+                            <p>A containerized data pipeline with Python, Flask, and Docker.</p>
+
+                            <div class="project-tags">
+
+                                <span>Python</span>
+
+                                <span>Docker</span>
+
+                                <span>Flask</span>
+
+                                <span>Pandas</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1563986768609-322da13575f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDR8fHB5dGhvbiUyMGRhdGF8ZW58MHx8fHwxNzIwODAyODcyfDA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Data Scraper & Dashboard"
+                                    data-tags="Python,Docker,Flask,BeautifulSoup,Pandas"
+                                    data-description="A containerized data pipeline. A Python script (using BeautifulSoup/Scrapy) scrapes data from the web, which is then cleaned with Pandas and served via a simple Flask API. The entire application (script, API, and a simple frontend) is containerized with Docker for easy deployment."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 7 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDZ8fG1vYmlsZSUyMGFwcCUyMGRldmVsb3BtZW50fGVufDB8fHx8MTcyMTgxOTY5MHww&ixlib=rb-4.0.3&q=80&w=800" alt="Cross-Platform Mobile App">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Cross-Platform Mobile App</h3>
+
+                            <p>A mobile app for iOS and Android built with React Native and Firebase.</p>
+
+                            <div class="project-tags">
+
+                                <span>React Native</span>
+
+                                <span>Firebase</span>
+
+                                <span>Mobile</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1551650975-87deedd944c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDZ8fG1vYmlsZSUyMGFwcCUyMGRldmVsb3BtZW50fGVufDB8fHx8MTcyMTgxOTY5MHww&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Cross-Platform Mobile App"
+                                    data-tags="React Native,JavaScript,Mobile,Firebase,Expo"
+                                    data-description="A cross-platform mobile app built with React Native and Expo. Features include user authentication with Firebase, a modern UI, and access to native device features like the camera."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 8 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDJ8fGxhcmF2ZWx8ZW58MHx8fHwxNzIxMzQ3NDIwfDA&ixlib=rb-4.0.3&q=80&w=800" alt="Custom CMS">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Custom CMS & Admin Panel</h3>
+
+                            <p>A bespoke CMS built with Laravel, featuring user roles and content management.</p>
+
+                            <div class="project-tags">
+
+                                <span>Laravel</span>
+
+                                <span>PHP</span>
+
+                                <span>MySQL</span>
+
+                                <span>Blade</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1633356122544-f134324a6cee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDJ8fGxhcmF2ZWx8ZW58MHx8fHwxNzIxMzQ3NDIwfDA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Custom CMS & Admin Panel" data-tags="Laravel,PHP,MySQL,Blade,MVC"
+                                    data-description="A bespoke CMS and admin panel built with Laravel. It features secure authentication, user role management, and an intuitive interface for creating, updating, and deleting website content. Built on the MVC pattern with Eloquent ORM and Blade."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 9 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEyfHxjbG91ZCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3MjE4MjQyOTZ8MA&ixlib=rb-4.0.3&q=80&w=800" alt="Cloud-Native E-commerce">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Cloud-Native Microservices</h3>
+
+                            <p>A scalable e-commerce backend built with microservices and deployed on AWS.</p>
+
+                            <div class="project-tags">
+
+                                <span>AWS</span>
+
+                                <span>Docker</span>
+
+                                <span>Kubernetes</span>
+
+                                <span>Node.js</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEyfHxjbG91ZCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3MjE4MjQyOTZ8MA&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Cloud-Native E-commerce Microservices"
+                                    data-tags="AWS,Docker,Kubernetes,Node.js,Terraform"
+                                    data-description="A complete backend for an e-commerce platform built as a set of distributed microservices (e.g., Users, Products, Orders). Each service is containerized with Docker, orchestrated with Kubernetes, and deployed on AWS. Infrastructure is managed via Terraform."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 10 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDh8fGhlYWRsZXNzJTIwY21zfGVufDB8fHx8MTcyMTgyNDM5OHww&ixlib=rb-4.0.3&q=80&w=800" alt="Headless CMS Blog">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>Modern Jamstack Blog</h3>
+
+                            <p>A blazing-fast blog built with Next.js, GraphQL, and a headless CMS.</p>
+
+                            <div class="project-tags">
+
+                                <span>Next.js</span>
+
+                                <span>GraphQL</span>
+
+                                <span>TypeScript</span>
+
+                                <span>Jamstack</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDh8fGhlYWRsZXNzJTIwY21zfGVufDB8fHx8MTcyMTgyNDM5OHww&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="Modern Jamstack Blog"
+                                    data-tags="Next.js,GraphQL,TypeScript,Jamstack,Headless CMS"
+                                    data-description="A statically generated (SSG) blog built with Next.js and TypeScript. It fetches content at build time from a headless CMS (like Contentful or Strapi) via a GraphQL API, resulting in a super-fast, secure, and SEO-friendly website."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Project 11 -->
+
+                    <div class="project-card">
+
+                        <div class="project-image">
+
+                            <img src="https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDE3fHxjaGF0Ym90fGVufDB8fHx8MTcyMTgyNDQ2OXww&ixlib=rb-4.0.3&q=80&w=800" alt="AI Chatbot API">
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <h3>AI-Powered Chatbot API</h3>
+
+                            <p>A REST API in Python that integrates with a large language model (LLM).</p>
+
+                            <div class="project-tags">
+
+                                <span>Python</span>
+
+                                <span>FastAPI</span>
+
+                                <span>AI/ML</span>
+
+                                <span>API</span>
+
+                            </div>
+
+                            <div class="project-links">
+
+                                <a class="view-project-btn" title="View Details"
+                                    data-image-url="https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDE3fHxjaGF0Ym90fGVufDB8fHx8MTcyMTgyNDQ2OXww&ixlib=rb-4.0.3&q=80&w=800"
+                                    data-title="AI-Powered Chatbot API" data-tags="Python,FastAPI,AI/ML,API,LLM"
+                                    data-description="A high-performance RESTful API built with FastAPI (Python) that serves as a backend for a chatbot. It takes user prompts, securely communicates with an external LLM (like OpenAI's), and streams the response back to the client."
+                                    data-demo-link="#" data-github-link="#">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+                                <a href="#" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================
+
+        EXPERIENCE SECTION
+
+        ========================================
+
+        -->
+
+        <section id="experience">
+
+            <div class="container">
+
+                <h2>Career Journey</h2>
+
+                <div class="timeline">
+
+                    <!-- Timeline Item 1 -->
+
+                    <div class="timeline-item left">
+
+                        <div class="timeline-content">
+
+                            <h3>Lead Full-Stack Developer</h3>
+
+                            <span class="timeline-date">2023 - Present</span>
+
+                            <span class="timeline-company">BigTech Solutions Inc.</span>
+
+                            <p>Leading architecture and development of enterprise-level applications. Mentoring a team
+
+                                of 8 developers, optimizing CI/CD pipelines, and scaling systems to support 10M+ active
+
+                                users.</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+
+                    <div class="timeline-item right">
+
+                        <div class="timeline-content">
+
+                            <h3>Senior Software Engineer</h3>
+
+                            <span class="timeline-date">2020 - 2023</span>
+
+                            <span class="timeline-company">Innovative Startups Co.</span>
+
+                            <p>Architected and built the core v2.0 platform using React, Node.js, and AWS. Implemented a
+
+                                microservice architecture which reduced API latency by 40% and improved developer
+
+                                velocity.</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+
+                    <div class="timeline-item left">
+
+                        <div class="timeline-content">
+
+                            <h3>Mid-Level Developer</h3>
+
+                            <span class="timeline-date">2018 - 2020</span>
+
+                            <span class="timeline-company">Creative Web Agency</span>
+
+                            <p>Developed and maintained 15+ client websites and e-commerce platforms using Laravel, PHP,
+
+                                and React. Led the integration of third-party APIs (Stripe, Twilio) for various
+
+                                projects.</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Timeline Item 4 -->
+
+                    <div class="timeline-item right">
+
+                        <div class="timeline-content">
+
+                            <h3>Junior Developer</h3>
+
+                            <span class="timeline-date">2017 - 2018</span>
+
+                            <span class="timeline-company">LocalDev Shop</span>
+
+                            <p>Assisted in building responsive websites and internal tools. Gained foundational
+
+                                experience in HTML, CSS, JavaScript, and PHP. Learned version control with Git and agile
+
+                                methodologies.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================
+
+        NEW: TESTIMONIALS SECTION
+
+        ========================================
+
+        -->
+
+        <section id="testimonials">
+
+            <div class="container">
+
+                <h2>What People Say</h2>
+
+                <div class="testimonial-slider-container">
+
+                    <div class="testimonial-slider">
+
+                        <!-- Slide 1 -->
+
+                        <div class="testimonial-slide active-slide">
+
+                            <i class="fas fa-quote-left"></i>
+
+                            <p class="testimonial-text">"Ashik is a true architect. He didn't just build what we asked
+
+                                for; he rebuilt our entire system to be faster, more scalable, and infinitely more
+
+                                reliable. His problem-solving skills are unmatched."</p>
+
+                            <p class="testimonial-author">Jane Doe</p>
+
+                            <p class="testimonial-author-title">CEO, BigTech Solutions Inc.</p>
+
+                        </div>
+
+                        <!-- Slide 2 -->
+
+                        <div class="testimonial-slide">
+
+                            <i class="fas fa-quote-left"></i>
+
+                            <p class="testimonial-text">"Working with Ashik was a game-changer. He leads by example,
+
+                                mentors junior developers effectively, and his code quality is the gold standard for our
+
+                                entire department. A true asset to any team."</p>
+
+                            <p class="testimonial-author">John Smith</p>
+
+                            <p class="testimonial-author-title">CTO, Innovative Startups Co.</p>
+
+                        </div>
+
+                        <!-- Slide 3 -->
+
+                        <div class="testimonial-slide">
+
+                            <i class="fas fa-quote-left"></i>
+
+                            <p class="testimonial-text">"I've never met a developer who can pick up complex new
+
+                                technologies as fast as Ashik. He single-handedly implemented our new cloud
+
+                                infrastructure on AWS, cutting our hosting costs by 30%."</p>
+
+                            <p class="testimonial-author">Emily Chen</p>
+
+                            <p class="testimonial-author-title">Product Manager, Creative Web Agency</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="slider-nav">
+
+                        <button class="slider-btn" id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+
+                        <button class="slider-btn" id="next-slide"><i class="fas fa-chevron-right"></i></button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================
+
+        NEW: BLOG SECTION
+
+        ========================================
+
+        -->
+
+        <section id="blog">
+
+            <div class="container">
+
+                <h2>From the Blog</h2>
+
+                <div class="blog-grid">
+
+                    <!-- Blog Post 1 -->
+
+                    <div class="blog-card">
+
+                        <div class="blog-image">
+
+                            <img src="https://images.unsplash.com/photo-1516116216624-53e6973bea1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEwfHxjbG91ZCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3MjE4MjQyOTZ8MA&ixlib=rb-4.0.3&q=80&w=800" alt="Blog Post 1">
+
+                        </div>
+
+                        <div class="blog-content">
+
+                            <span class="blog-date">JULY 22, 2025</span>
+
+                            <h3>Why I Chose Kubernetes for My Side Project (And Why You Shouldn't)</h3>
+
+                            <p>A deep dive into the pros and cons of using K8s for small-scale applications...</p>
+
+                            <a href="#" target="_blank">Read More &rarr;</a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Blog Post 2 -->
+
+                    <div class="blog-card">
+
+                        <div class="blog-image">
+
+                            <img src="https://images.unsplash.com/photo-155006387-f2693838218d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDI3fHxqcGhlbnwwfHx8fDE3MjE4MjU0MTJ8MA&ixlib=rb-4.0.3&q=80&w=800" alt="Blog Post 2">
+
+                        </div>
+
+                        <div class="blog-content">
+
+                            <span class="blog-date">JULY 15, 2025</span>
+
+                            <h3>5 Advanced React Hooks That Will Change How You Write Code</h3>
+
+                            <p>Beyond useState and useEffect. Exploring useMemo, useCallback, and custom hooks...</p>
+
+                            <a href="#" target="_blank">Read More &rarr;</a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Blog Post 3 -->
+
+                    <div class="blog-card">
+
+                        <div class="blog-image">
+
+                            <img src="https://images.unsplash.com/photo-1506967726964-da9127fdec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDMxfHxzeXN0ZW0lMjBkZXNpZ258ZW58MHx8fHwxNzIxODI1NDg5fDA&ixlib=rb-4.0.3&q=80&w=800" alt="Blog Post 3">
+
+                        </div>
+
+                        <div class="blog-content">
+
+                            <span class="blog-date">JULY 01, 2025</span>
+
+                            <h3>The Scalable API: From Monolith to Microservices with Node.js</h3>
+
+                            <p>My journey of refactoring a massive Laravel monolith into scalable Node.js
+
+                                microservices...</p>
+
+                            <a href="#" target="_blank">Read More &rarr;</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer id="contact">
+
+        <div class="container">
+
+            <h2>Let's Build Something Amazing</h2>
+
+            <p>I'm open to new opportunities and collaborations. Let's chat!</p>
+
+            <a href="#" id="contact-modal-trigger" class="cta-button" style="margin-top: 1rem;">Say Hello</a>
+
+
+
+            <div class="social-icons" style="margin-top: 3rem;">
+
+                <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+
+                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+
+                <a href="#" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+
+            </div>
+
+
+
+            <p>&copy; 2025 Ashikul Islam Onik. All rights reserved.</p>
+
+            <p>Designed with <span style="color: var(--accent-purple);">❤</span></p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ========================================
+
+    PROJECT MODAL HTML
+
+    ========================================
+
+    -->
+
+    <div class="modal-overlay" id="project-modal-overlay">
+
+        <div class="modal-content" id="project-modal-content">
+
+            <span class="modal-close-btn">&times;</span>
+
+
+
+            <div id="modal-project-image">
+
+                <img id="modal-project-img-tag" src="" alt="Project Image Preview">
+
+            </div>
+
+            <h2 id="modal-project-title"></h2>
+
+            <div id="modal-project-tags"></div>
+
+            <p id="modal-project-description"></p>
+
+
+
+            <div id="modal-project-links">
+
+                <a id="modal-demo-link" href="#" target="_blank" class="cta-button"
+                    style="background: transparent; color: var(--accent-cyan);"><i class="fas fa-eye"></i> Live Demo</a>
+
+                <a id="modal-github-link" href="#" target="_blank"
+                    style="color: var(--text-primary);"><i class="fab fa-github"></i> Source Code</a>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================
+
+    CONTACT MODAL HTML
+
+    ========================================
+
+    -->
+
+    <div class="modal-overlay" id="contact-modal-overlay">
+
+        <div class="modal-content" id="contact-modal-content">
+
+            <span class="modal-close-btn">&times;</span>
+
+
+
+            <h2 id="contact-modal-title">Contact Me</h2>
+
+
+
+            <form id="contact-form">
+
+                <div class="form-group">
+
+                    <label for="name">Name</label>
+
+                    <input type="text" id="name" name="name" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="email">Email</label>
+
+                    <input type="email" id="email" name="email" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="subject">Subject</label>
+
+                    <input type="text" id="subject" name="subject">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="message">Message</label>
+
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                </div>
+
+                <button type="submit" class="cta-button">Send Message</button>
+
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================
+
+    SKILL MODAL HTML
+
+    ========================================
+
+    -->
+
+    <div class="modal-overlay" id="skill-modal-overlay">
+
+        <div class="modal-content" id="skill-modal-content">
+
+            <span class="modal-close-btn">&times;</span>
+
+
+
+            <div id="modal-skill-header">
+
+                <i id="modal-skill-icon"></i>
+
+                <h2 id="modal-skill-title"></h2>
+
+            </div>
+
+
+
+            <img id="modal-skill-image" src="" alt="Skill Image">
+
+
+
+            <div class="skill-details-col">
+
+                <h4>What I Know</h4>
+
+                <p id="modal-skill-description"></p>
+
+            </div>
+
+
+
+            <div class="skill-details-col" style="margin-top: 1.5rem;">
+
+                <h4>What I Can Create With It</h4>
+
+                <p id="modal-skill-creates"></p>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- JavaScript -->
+
+    <script>
+        // --- Mouse Aura Script ---
+
+        const aura = document.getElementById('aura');
+
+        document.addEventListener('mousemove', (e) => {
+
+            aura.style.left = e.pageX + 'px';
+
+            aura.style.top = e.pageY + 'px';
+
+        });
+
+
+
+        // --- All Modal Scripts ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            
+
+            // --- Pre-load Gate Logic ---
+
+            const preLoadOverlay = document.getElementById('pre-load-overlay');
+
+            const q1 = document.getElementById('gate-question-1');
+
+            const q2 = document.getElementById('gate-question-2');
+
+            const kicked = document.getElementById('gate-kicked');
+
+            const btnLooking = document.getElementById('btn-looking');
+
+            const btnIsDev = document.getElementById('btn-is-dev');
+
+            const btnYesSteal = document.getElementById('btn-yes-steal');
+
+            const btnNoSteal = document.getElementById('btn-no-steal');
+
+
+
+            const pageAura = document.getElementById('aura');
+
+            const pageNavbar = document.querySelector('.navbar');
+
+            const pageHero = document.querySelector('.hero');
+
+            const pageMain = document.querySelector('main');
+
+            const pageFooter = document.querySelector('footer');
+
+            const pageElements = [pageAura, pageNavbar, pageHero, pageMain, pageFooter];
+
+
+
+            function showPage() {
+
+                preLoadOverlay.style.opacity = 0;
+
+                preLoadOverlay.style.pointerEvents = 'none';
+
+                pageElements.forEach(el => el.classList.add('visible'));
+
+                setTimeout(() => { preLoadOverlay.style.display = 'none'; }, 500);
+
+            }
+
+            function showQ2() { q1.style.display = 'none'; q2.style.display = 'block'; }
+
+            function showKicked() { q2.style.display = 'none'; kicked.style.display = 'block'; }
+
+
+
+            btnLooking.addEventListener('click', showPage);
+
+            btnIsDev.addEventListener('click', showQ2);
+
+            btnNoSteal.addEventListener('click', showPage);
+
+            btnYesSteal.addEventListener('click', showKicked);
+
+
+
+            
+
+            // --- Project Modal Logic ---
+
+            const modalOverlay = document.getElementById('project-modal-overlay');
+
+            const modalCloseBtn = modalOverlay.querySelector('.modal-close-btn'); 
+
+            const viewProjectBtns = document.querySelectorAll('.view-project-btn');
+
+
+
+            const modalTitle = document.getElementById('modal-project-title');
+
+            const modalTags = document.getElementById('modal-project-tags');
+
+            const modalDescription = document.getElementById('modal-project-description');
+
+            const modalDemoLink = document.getElementById('modal-demo-link');
+
+            const modalGithubLink = document.getElementById('modal-github-link');
+
+            const modalProjectImg = document.getElementById('modal-project-img-tag');
+
+
+
+            const openModal = (e) => {
+
+                e.preventDefault(); 
+
+                const btn = e.currentTarget;
+
+                const title = btn.dataset.title;
+
+                const tags = btn.dataset.tags.split(',');
+
+                const description = btn.dataset.description;
+
+                const demoLink = btn.dataset.demoLink;
+
+                const githubLink = btn.dataset.githubLink;
+
+                const imageUrl = btn.dataset.imageUrl;
+
+
+
+                modalTitle.textContent = title;
+
+                modalDescription.textContent = description;
+
+                modalDemoLink.href = demoLink;
+
+                modalGithubLink.href = githubLink;
+
+                modalProjectImg.src = imageUrl;
+
+                modalProjectImg.alt = title;
+
+                
+
+                modalTags.innerHTML = '';
+
+                tags.forEach(tag => {
+
+                    const tagElement = document.createElement('span');
+
+                    tagElement.textContent = tag.trim();
+
+                    modalTags.appendChild(tagElement);
+
+                });
+
+                modalOverlay.classList.add('modal-active');
+
+            };
+
+            const closeModal = () => { modalOverlay.classList.remove('modal-active'); };
+
+            viewProjectBtns.forEach(btn => { btn.addEventListener('click', openModal); });
+
+            modalCloseBtn.addEventListener('click', closeModal);
+
+            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+
+
+            
+
+            // --- Contact Modal Logic ---
+
+            const contactModalOverlay = document.getElementById('contact-modal-overlay');
+
+            const contactModalTrigger = document.getElementById('contact-modal-trigger');
+
+            const contactModalCloseBtn = contactModalOverlay.querySelector('.modal-close-btn');
+
+            const contactForm = document.getElementById('contact-form');
+
+
+
+            const openContactModal = (e) => { e.preventDefault(); contactModalOverlay.classList.add('modal-active'); };
+
+            const closeContactModal = () => { contactModalOverlay.classList.remove('modal-active'); };
+
+
+
+            contactModalTrigger.addEventListener('click', openContactModal);
+
+            contactModalCloseBtn.addEventListener('click', closeContactModal);
+
+            contactModalOverlay.addEventListener('click', (e) => { if (e.target === contactModalOverlay) closeContactModal(); });
+
+            
+
+            contactForm.addEventListener('submit', (e) => {
+
+                e.preventDefault();
+
+                console.log('Form submitted (demo)');
+
+                contactForm.reset();
+
+                closeContactModal();
+
+            });
+
+
+
+            
+
+            // --- Skill Modal Logic ---
+
+            const skillModalOverlay = document.getElementById('skill-modal-overlay');
+
+            const skillModalCloseBtn = skillModalOverlay.querySelector('.modal-close-btn');
+
+            const skillCards = document.querySelectorAll('.skill-card');
+
+            
+
+            const modalSkillTitle = document.getElementById('modal-skill-title');
+
+            const modalSkillIcon = document.getElementById('modal-skill-icon');
+
+            const modalSkillImage = document.getElementById('modal-skill-image');
+
+            const modalSkillDescription = document.getElementById('modal-skill-description');
+
+            const modalSkillCreates = document.getElementById('modal-skill-creates');
+
+            
+
+            const openSkillModal = (e) => {
+
+                const card = e.currentTarget;
+
+                modalSkillTitle.textContent = card.dataset.skillName;
+
+                modalSkillIcon.className = card.dataset.skillIcon;
+
+                modalSkillImage.src = card.dataset.skillImageUrl;
+
+                modalSkillImage.alt = card.dataset.skillName;
+
+                modalSkillDescription.textContent = card.dataset.skillDescription;
+
+                modalSkillCreates.textContent = card.dataset.skillCreates;
+
+                skillModalOverlay.classList.add('modal-active');
+
+            };
+
+            const closeSkillModal = () => { skillModalOverlay.classList.remove('modal-active'); };
+
+            
+
+            skillCards.forEach(card => card.addEventListener('click', openSkillModal));
+
+            skillModalCloseBtn.addEventListener('click', closeSkillModal);
+
+            skillModalOverlay.addEventListener('click', (e) => { if (e.target === skillModalOverlay) closeSkillModal(); });
+
+
+
+            
+
+            // --- NEW: Testimonial Slider Logic ---
+
+            const slides = document.querySelectorAll('.testimonial-slide');
+
+            const nextBtn = document.getElementById('next-slide');
+
+            const prevBtn = document.getElementById('prev-slide');
+
+            let currentSlide = 0;
+
+
+
+            function showSlide(index) {
+
+                slides.forEach((slide, i) => {
+
+                    slide.classList.remove('active-slide');
+
+                });
+
+                slides[index].classList.add('active-slide');
+
+            }
+
+
+
+            function nextSlide() {
+
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                showSlide(currentSlide);
+
+            }
+
+
+
+            function prevSlide() {
+
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+
+                showSlide(currentSlide);
+
+            }
+
+
+
+            nextBtn.addEventListener('click', nextSlide);
+
+            prevBtn.addEventListener('click', prevSlide);
+
+            
+
+            // Init slider
+
+            showSlide(currentSlide);
+
+
+
+
+
+            // --- Global Modal 'Escape' Key Listener ---
+
+            document.addEventListener('keydown', (e) => {
+
+                if (e.key === 'Escape') {
+
+                    if (modalOverlay.classList.contains('modal-active')) closeModal();
+
+                    if (contactModalOverlay.classList.contains('modal-active')) closeContactModal();
+
+                    if (skillModalOverlay.classList.contains('modal-active')) closeSkillModal();
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+    <script>
+        // --- Disables Right-Click ---
+
+            document.addEventListener('contextmenu', event => event.preventDefault());
+
+        
+
+            // --- Disables Common Dev Tool Keys ---
+
+            document.onkeydown = function(e) {
+
+                // Disable F12
+
+                if (event.keyCode == 123) {
+
+                    return false;
+
+                }
+
+                // Disable Ctrl+Shift+I
+
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+
+                    return false;
+
+                }
+
+                // Disable Ctrl+Shift+J
+
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+
+                    return false;
+
+                }
+
+                // Disable Ctrl+U (View Source)
+
+                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+
+                    return false;
+
+                }
+
+            };
+
+    </script>
+
+</body>
+
+
+
+</html>"
